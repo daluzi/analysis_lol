@@ -37,6 +37,7 @@ def loadExcel_2(filename):
 	uziAllKill = 0
 	uziAllSup = 0
 	uziAllDie = 0
+	uziKDA = {}
 	# 迭代所有的行
 	for row in rows:
 		line = [col.value for col in row]
@@ -54,6 +55,8 @@ def loadExcel_2(filename):
 			uziAllKill += (int(line[6]) * float(line[12]))
 			uziAllSup += (int(line[6]) * float(line[13]))
 			uziAllDie += (int(line[6]) * float(line[14]))
+			uziKDA["%s" %line[4]] = line[3]
+
 
 	KDATop = list(map(float, KDATop))
 	KDASingle = list(map(float, KDASingle))
@@ -68,6 +71,6 @@ def loadExcel_2(filename):
 
 
 
-	return KDATop, KDASingle, KDAAdc, KDAJungle, KDASupport, uziAllKill, uziAllSup, uziAllDie
+	return KDATop, KDASingle, KDAAdc, KDAJungle, KDASupport, uziAllKill, uziAllSup, uziAllDie, uziKDA
 
 # loadExcel_2('player.xlsx')
