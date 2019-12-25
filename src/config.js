@@ -54,7 +54,7 @@
 
   // 附加信息内容。
   // left label
-  itemLabel: "KDA排行",
+  itemLabel: "战队排行",
 
   // right label
   typeLabel: "LPL天下第一",
