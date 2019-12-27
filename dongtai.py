@@ -51,31 +51,35 @@ def get_data(table, rownum, title):
 
 title = 'Heroin Overdoses'
 d = get_data(overdoses, 18, title)
-x = ['2013全球总决赛', '2013 LPL 春季赛', '2013 LPL 夏季赛', '2014 S4 全球总决赛', '2014 LPL 春季赛', '2014 LPL 夏季赛', '2015 LPL 春季赛', '2015 LPL 夏季赛', '2015全明星赛', '2015 德玛西亚杯—武汉', '2016 LPL 春季赛', '2016全球总决赛', '2016 LPL 夏季赛', '2016全明星赛', '2016德玛西亚杯—苏州武汉', '2017 LPL 春季赛', '2017 LPL 夏季赛']
+print(d)
+x = np.array(d.index)
 y = np.array(d['Heroin Overdoses'])
+print(x)
+print(y)
 overdose = pd.DataFrame(y, x)
 overdose.columns = {title}
 
-# Writer = animation.writers['ffmpeg']
-# Writer = Writer(fps = 20, metadata = dict(artist = 'Me'), bitrate = 1800)
+Writer = animation.writers['ffmpeg']
+Writer = Writer(fps = 20, metadata = dict(artist = 'Me'), bitrate = 1800)
 
 fig = plt.figure(figsize=(10, 6))
-# plt.xlim(1999, 2016)
-plt.plot(x)
+# plt.xlim(0, 18)
+# plt.plot(x)
 plt.ylim(np.min(overdose)[0], np.max(overdose)[0])
 plt.xlabel('Year', fontsize = 20)
 plt.xticks(rotation=30)
 
-plt.ylabel('KDA', fontsize = 20)
+plt.ylabel(title, fontsize = 20)
 plt.title('UZI\'s KDA over the years', fontsize = 20)
 
 def animate(i):
 	data = overdose.iloc[:int(i + 1)]
-	p = sns.lineplot(x = data.index, y = data[title], data = data, color = 'r')
-	print(data[title])
+	# print(data)
+	p = sns.lineplot(x = data.index, y = data[title], data = data, color = 'r', ci=None)
+	# print(y)
 	p.tick_params(labelsize = 7)
 	plt.setp(p.lines, linewidth = 3)
 
-ani = matplotlib.animation.FuncAnimation(fig, animate, frames = 17, repeat=True)
-# ani.save('HeroinOverdosesJumpy.mp4', writer = Writer)
+ani = animation.FuncAnimation(fig, animate, frames = len(x), repeat=True)
+ani.save('KDAheiheihei.mp4', writer = Writer)
 plt.show()
